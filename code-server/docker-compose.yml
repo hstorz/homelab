@@ -1,0 +1,16 @@
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1024
+      - PGID=100
+      - TZ=Europe/Berlin
+      - PASSWORD=random # Set a strong password for code-server login
+      - SUDO_PASSWORD=random # Optional: For sudo access inside VS Code terminal
+    volumes:
+      - ./config:/config # Persists VS Code settings/extensions
+      - ./git:/git # Mounts git repos
+    ports:
+      - 8443:8443
+    restart: unless-stopped
