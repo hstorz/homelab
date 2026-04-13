@@ -1,0 +1,18 @@
+services:	
+  opencode:
+    image: ghcr.io/anomalyco/opencode:latest
+    container_name: opencode
+    restart: unless-stopped
+    environment:
+      PUID: "1024"
+      PGID: "100"
+      TZ: Europe/Berlin
+    volumes:
+      - ./config:/root/.config/opencode
+      - ./data:/root/.local/share/opencode
+      - ./workspace:/workspace
+    working_dir: /workspace
+    ports:
+      - "4096:4096"
+    entrypoint: ["opencode"]
+    command: ["serve", "--hostname", "0.0.0.0", "--port", "4096"]
